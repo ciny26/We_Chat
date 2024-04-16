@@ -1,0 +1,386 @@
+@mixin mobile{
+    @media screen and (max-width:580px) {
+        @content
+    }
+}
+
+
+@mixin tablet{
+    @media screen and (max-width:970px) {
+        @content
+    }
+}
+
+
+html , body{
+    padding: 0;
+    margin: 0;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+.formContainer{
+    display: flex;
+    height: 100vh;
+    width:100%;
+    background-color: #a7bcff;
+    justify-content: center;
+    align-items: center;
+
+
+    .formWrapper{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        background-color: white;
+        padding: 24px 60px;
+        border-radius: 10px;
+
+        .logo{
+            text-align: center;
+            font-size: 32px;
+        }
+        .title{
+
+            text-align: center;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+
+
+            input{
+                height: 30px;
+               border: none;
+               border-bottom: 1px solid #a7bcff;
+               padding: 0 10px;
+
+                &::placeholder{
+                    color: rgb(175, 175, 175);
+                    transition: font-size 0.5s ease-in;
+                }
+                &:focus {
+                    outline: none;
+                    &::placeholder{
+                        font-size: 18px;
+                    }
+                }
+                
+            }
+            
+            label{
+                display: flex;
+                align-items: center;
+                font-size: 14px;
+                color:rgb(121, 119, 119);
+                & *{
+                    padding: 0 1px;
+                }
+            }
+            button{
+                border: none;
+                height:45px;
+                background-color: #a7bcff;
+                color: white;
+                transition: background-color 0.5s ease-in;
+                &:hover{
+                    background-color: #4f6fd6;
+                }
+            }
+        }
+    }
+}
+
+.home{
+    display: flex;
+    height: 100vh;
+    width:100%;
+    background-color: #a7bcff;
+    justify-content: center;
+    align-items: center;
+
+
+    .boxWrapper{
+        display: flex;
+        width: 75%;
+        height: 80%;
+        border: white 1px solid;
+        border-radius: 10px;
+        overflow: hidden;
+        @include tablet{
+            width: 92%; 
+           }
+        @include mobile{
+            width: 100%; 
+            height: 100vh;
+           }
+
+
+        .SideBarContainer{
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #3e3c61;
+            color: white;
+        
+        & *{
+            padding: 5px;
+        }
+            .navBar{
+                box-sizing: border-box;
+                width: 100%;
+                height: 80px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: #2f2d52;
+                @include tablet{
+                 justify-content: center;    
+                  
+                }
+
+
+
+                .logo{
+                    font-weight: 500;
+                    @include tablet{
+                        display: none;
+                    }
+                }
+
+                .user{
+                    display: flex;
+                    align-items: center;
+                    
+                    & *{ 
+                        margin: 0 1px;
+                        font-size: 10px;
+                        @include tablet{
+                            justify-content: center;    
+                            font-size: 16px; 
+                           }
+
+                    }
+
+                    .userImg{
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
+                    button{
+                        color: white;
+                        background-color: #5d5b87;
+                        padding: 4px;
+                        border: none;
+                        cursor: pointer;
+                        font-size: 12px;
+                    }
+                }
+            }
+
+            .Search{
+                border-bottom: 1px solid gray;
+                height: 40px;
+                .SearchInput{
+                    height: 100%;
+                    width: 100%;
+                    background-color: transparent;
+                    border: none;
+                    outline: none;
+                    color: white;
+                }
+            }
+
+            .chats{
+                .userChat{
+                    display: flex;
+                    &:hover{
+                        background-color: #2f2d52 ;
+                    }
+                    .chatUserImg{
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                        
+                    }
+                    .userChatInfo{
+                        .userName{}
+                        .lastUserMessage{
+                            font-size: 10px;
+                            margin: 0;
+
+                        }
+                    }
+                }
+            }
+        }
+
+        .MessageBoxContainer{
+            flex: 5;
+            display: flex;
+            flex-direction: column;
+            & *{
+                padding: 10px;
+            }
+            .chatBar{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: calc(100% - 20px);
+                height:60px;
+                background-color: #5d5b8d;
+                .userChat{
+                    color: white;
+                    font-weight: 700;
+                }
+                .chatBarIcons{
+                    display: flex;
+                    & *{
+                        width: 26px;
+                        height: 26px ;
+                        margin: 0 3px;
+                        padding: 1px;
+                        border-radius: 50%;
+                        cursor: pointer;
+                        &:hover{
+                            background-color: #2f2d52;
+                        }
+                    }
+                }
+            }
+
+            .Messages{
+                background-color: #ddddf7;
+                height: calc(100% - 160px);
+                overflow-y: scroll;
+                .Message{
+                    display: flex;
+                    gap: 10px;
+                    margin-bottom: 10px;
+
+
+                    .MessageInfo{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        color: gray;
+                        font-weight: 300;
+                        img{
+                            width: 30px;
+                            height: 30px;
+                            border-radius: 50%;
+                            object-fit: cover;
+                        }
+                    }
+
+                    .MessageContent{
+                        max-width: 80%;
+                        display: flex;
+                        flex-direction: column;
+                       
+                        img{
+                            width: 50%;
+                            @include tablet{
+                                width: 90%; 
+                               }
+                        }
+
+                        p{
+                            background-color: white;
+                            border-radius: 0 10px 10px 10px;
+                            max-width: max-content;
+                            margin: 0;
+                        }
+
+                    }
+
+
+                    &.owner{
+                        flex-direction: row-reverse;
+                        .MessageContent{
+                            align-items: flex-end;
+                        }
+                        
+    
+                        p{
+                            background-color: #4f6fd6;
+                            color: white;
+                            border-radius: 10px 10px 10px 0;
+                        }
+                    }
+                }
+
+               
+            }
+            .Input{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: white;
+                height: 60px;
+                padding: 10px;
+                
+
+                .message{
+                    width: 100%;
+                    border: none;
+                    background-color: transparent;
+                    outline: none;
+                    font-size: 16px;
+                    color: #2f2d52;
+                    &::placeholder{
+                        color: lightgray;
+                    }
+                }
+
+                .Send{
+                    display: flex;
+                    align-items: center;
+
+                    & *{
+                        text-align: center;
+                        width: 30px;
+                        height: 30px;
+                        padding: 0;
+                        cursor: pointer;
+                        margin: 0 6px;
+                        @include tablet{
+                            width: 15px;
+                            height: 15px; 
+                           }
+                    }
+                    .sendBtn{
+                        img{
+                            width: 24px;
+                            height: 24px;
+                            padding: 0;
+                            @include tablet{
+                                width: 10px;
+                                height: 10px; 
+                               }
+                        }
+
+                    }
+
+                    label{
+                        img{
+                            width: 24px;
+                            height: 24px;
+                            padding: 0;
+                            @include tablet{
+                                width: 10px;
+                                height: 10px; 
+                               }
+                        }
+
+                }
+                
+
+
+                
+            }
+
+        }
+    }
+}}
