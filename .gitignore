@@ -1,0 +1,22 @@
+# Dependency directories
+node_modules/
+
+# Production build directory
+dist/
+
+# Development server files
+.vite/
+
+# IDE files
+.idea/
+.vscode/
+
+# macOS files
+.DS_Store
+
+# Editor temporary files
+*.swp
+*.swo
+
+# Environment variables file (if used)
+.env
