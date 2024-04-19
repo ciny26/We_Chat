@@ -1,26 +1,34 @@
 import AddImg from "../images/AddImg.svg"
+import UserImg from "../images/user.svg"
 import { createUserWithEmailAndPassword , updateProfile } from "firebase/auth";
 import { auth , db, storage } from "../firebase";
-import { useState } from "react";
+import {  useState } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { setDoc , doc } from "firebase/firestore";
+import { useNavigate , Link } from "react-router-dom";
 
-const addUser = async(res , userName , email , downloadURL)=>{
+const addUser = async(res , userName , email , downloadURL , password)=>{
         setDoc(doc(db , "users" , res?.user?.uid) , {
         uid:res.user.uid,
         userName,
         email,
-        photoURL: downloadURL
+        photoURL: downloadURL,
+        password
     })
+}
+
+
+const addUserChat = async(res)=>{
+    setDoc(doc(db , "userChat" , res?.user?.uid) , {})
 }
 
 
 
 
 
+
 const Register = () => {
-
-
+    const navigate = useNavigate()
     const [err , setErr] = useState(false)
     const handleSubmit = async (e)=>{
         e.preventDefault()
@@ -58,8 +66,9 @@ const Register = () => {
                                     displayName: userName,
                                     photoURL: downloadURL
                                 });
-                                await addUser(res , userName , email , downloadURL)
-                               
+                                await addUser(res , userName , email , downloadURL , password)
+                                await addUserChat(res)
+                                navigate('/')
                             })
                             
                         }
@@ -67,8 +76,12 @@ const Register = () => {
                 } else {
                     // If no image selected, update user profile without photoURL
                     await updateProfile(res?.user, {
-                        displayName: userName
+                        displayName: userName,
+                        photoURL: UserImg
                     });
+                    await addUser(res, userName, email, UserImg, password); // Pass null as photoURL
+                    await addUserChat(res);
+                    navigate("/");
                 }
             } catch (error) {
                 console.error(error);
@@ -99,7 +112,7 @@ const Register = () => {
                     <button>Sign up</button>
                     {err && <span className="error">There is some thing wrong</span>}
                 </form>
-                <span>If you already have an account ? login </span>
+                <span>If you already have an account ? <Link to='/login'>login</Link> </span>
             </div>
         </div>
 

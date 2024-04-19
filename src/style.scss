@@ -180,14 +180,27 @@ html , body{
 
             .Search{
                 border-bottom: 1px solid gray;
-                height: 40px;
+                height:max-content;
                 .SearchInput{
-                    height: 100%;
+                   
                     width: 100%;
                     background-color: transparent;
                     border: none;
                     outline: none;
                     color: white;
+                }
+                .searchUser{
+                    display: flex;
+                    &:hover{
+                        background-color: #2f2d52;
+                        cursor: pointer;
+                    }
+                    .searchUserImg{
+                        width: 24px;
+                        height: 24px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
                 }
             }
 
