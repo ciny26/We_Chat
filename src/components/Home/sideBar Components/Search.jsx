@@ -1,8 +1,10 @@
-import { collection, query, where, getDocs, startAt, endAt } from "firebase/firestore";
-import { useState } from "react";
+import { collection, query, where, getDocs, getDoc, doc, setDoc, updateDoc, serverTimestamp } from "firebase/firestore";
+import { useContext, useState } from "react";
 import { db } from "../../../firebase";
+import {AuthContext} from "../../../AuthContext"
 
 const Search = () => {
+    const currentUser = useContext(AuthContext)
     const [userName, setUserName] = useState("");
     const [usersList, setUsersList] = useState([]);
     const [err, setErr] = useState(false);
@@ -22,9 +24,10 @@ const Search = () => {
                 fetchedUsers.push(doc.data());
                 console.log(doc.data())
             });
+
             setUsersList(fetchedUsers);
         } catch (error) {
-            setErr(true);
+            
             console.log(error);
         }
     };
@@ -34,6 +37,51 @@ const Search = () => {
             handleSearch();
         }
     };
+
+
+    const handleSelect = async (user)=>{
+        //check if the chats collection exists (chats ixists in firebase)
+        console.log(currentUser)
+        const combinedID = user.uid > currentUser.uid ? user.uid + currentUser.uid : 
+                                                        currentUser.uid + user.uid 
+        
+        try {
+            const res = await getDoc(doc(db , "chats" , combinedID))
+            if (!res.exists()) {
+                //creat chat in chats collection 
+                await setDoc(doc (db , "chats" , combinedID) , {messages : []})
+                //create user chat
+                await updateDoc(doc(db , "userChat" , currentUser.uid) , {
+                    [combinedID + ".userInfo"]:{
+                        uid:user.uid ,
+                        userName : user.userName , 
+                        photoURL : user.photoURL
+
+                    },
+                    [combinedID + ".Date"] : serverTimestamp()
+                })
+                // and ad it for the person you wanted to send messages to him also 
+                await updateDoc(doc(db , "userChat" , user.uid) , {
+                    [combinedID + ".userInfo"]:{
+                        uid: currentUser.uid ,
+                        userName : currentUser.displayName , 
+                        photoURL : currentUser.photoURL
+
+                    },
+                    [combinedID + ".Date"] : serverTimestamp()
+                })
+                
+            
+            }   
+            else {
+                
+            }
+            setUsersList([])
+            setUserName("")
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <div className="Search">
@@ -46,15 +94,16 @@ const Search = () => {
                 onKeyDown={handleKey}
             />
             
-                {usersList && usersList.map((user, index) => (
+                {usersList && usersList.length > 0 && usersList.map((user, index) => (
                     
-                    <div key={index} className="searchUser">
+                    <div key={index} className="searchUser" onClick={() => handleSelect(user)}>
                         <img src={user.photoURL} alt="" className="searchUserImg"/>
                         <span className="searchUserName">{user.userName}</span>
                     </div>
                 ))}
             
-            {err && <div>Error occurred while searching.</div>}
+            {usersList.length == 0 && err &&<div>No user found !!</div>}
+            
         </div>
     );
 };
