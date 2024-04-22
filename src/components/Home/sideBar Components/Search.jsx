@@ -2,6 +2,7 @@ import { collection, query, where, getDocs, getDoc, doc, setDoc, updateDoc, serv
 import { useContext, useState } from "react";
 import { db } from "../../../firebase";
 import {AuthContext} from "../../../AuthContext"
+import search from "../../../images/search.svg"
 
 const Search = () => {
     const currentUser = useContext(AuthContext)
@@ -85,6 +86,7 @@ const Search = () => {
 
     return (
         <div className="Search">
+            <div className="inputField">
             <input
                 type="text"
                 className="SearchInput"
@@ -93,7 +95,10 @@ const Search = () => {
                 onChange={(e) => setUserName(e.target.value)}
                 onKeyDown={handleKey}
             />
+                <img src={search} alt="" onClick={handleSearch} />
+            </div>
             
+
                 {usersList && usersList.length > 0 && usersList.map((user, index) => (
                     
                     <div key={index} className="searchUser" onClick={() => handleSelect(user)}>

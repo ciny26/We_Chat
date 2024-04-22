@@ -217,14 +217,23 @@ html , body{
             .Search{
                 border-bottom: 1px solid gray;
                 height:max-content;
-                .SearchInput{
+                .inputField{
+                    display: flex;
+                    .SearchInput{
                    
-                    width: 100%;
-                    background-color: transparent;
-                    border: none;
-                    outline: none;
-                    color: white;
+                        width: 100%;
+                        background-color: transparent;
+                        border: none;
+                        outline: none;
+                        color: white;
+                    }
+                    img{
+                        width: 24px;
+                        height: 24px;
+                        cursor: pointer;
+                    }
                 }
+                
                 .searchUser{
                     display: flex;
                     &:hover{
