@@ -1,10 +1,14 @@
 import videoCall from "../../../images/videoCall.svg"
 import AddContact from "../../../images/AddContact.svg"
 import moreIcon from "../../../images/moreIcon.svg"
+import { ChatContext } from "../../../Context/ChatContext"
+import { useContext } from "react"
 const ChatBar = () => {
+    const {data}= useContext(ChatContext)
+    console.log(data)
     return ( 
         <div className="chatBar">
-            <span className="userChat">John</span>
+            <span className="userChat">{data.user.userName}</span>
             <div className="chatBarIcons">
                 <img src={videoCall} alt="Video Call Icon" className="icon" />
                 <img src={AddContact} alt="Phone Call Icon" className="icon" />
