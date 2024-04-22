@@ -26,17 +26,16 @@ const Chats = () => {
 )
 
 
-    console.log(Object.entries(chats))
     return ( 
         <div className="chats">
             {
-                (Object.entries(chats)).map((chat)=>(
+                (Object.entries(chats))?.sort((a , b ) =>  b[1].Date - a[1].Date ).map((chat)=>(
 
                     <div className="userChat" key={chat[0]} onClick={()=>{handleUserClick(chat[1].userInfo)}}>
                         <img src={chat[1].userInfo.photoURL} alt="profile pic" className="chatUserImg" />
                         <div className="userChatInfo">
                             <span className="userName">{chat[1].userInfo.userName}</span>
-                            <p className="lastUserMessage">{chat[1].userInfo?.lastMessage}</p>
+                            <p className="lastUserMessage">{chat[1].lastMessage}</p>
                         </div>
                     </div>
                 ))

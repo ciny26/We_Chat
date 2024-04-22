@@ -8,14 +8,11 @@ const Login = () => {
     const handleSubmit = async (e)=>{
         e.preventDefault()
         const email = e.target[0].value
-        console.log(email)
         const password = e.target[1].value
-        console.log(password)
         try {
             setErr(false)
-            const res = await signInWithEmailAndPassword(auth, email, password)
-            console.log(res)
-            console.log("Login succed")
+            await signInWithEmailAndPassword(auth, email, password)
+           
             navigate('/')
         
         }
@@ -32,7 +29,7 @@ const Login = () => {
                     <input type="email" name="" id="email" placeholder="Enter an email" />
                     <input type="password" name="" id="password" placeholder="Enter a password" />
                     <button>Login</button>
-                    {err && <span>Something went wrong</span>}
+                    {err && <span className="error">Invalid email or password</span>}
                 </form>
                 <span>You don't have an account ? <Link to='/register'>register</Link>  </span>
             </div>

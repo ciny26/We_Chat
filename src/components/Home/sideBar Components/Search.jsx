@@ -22,13 +22,14 @@ const Search = () => {
             const fetchedUsers = [];
             querySnapshot.forEach((doc) => {
                 fetchedUsers.push(doc.data());
-                console.log(doc.data())
+                
             });
 
             setUsersList(fetchedUsers);
+            setErr(false)
         } catch (error) {
-            
-            console.log(error);
+            setErr(true)
+           
         }
     };
 
@@ -41,7 +42,6 @@ const Search = () => {
 
     const handleSelect = async (user)=>{
         //check if the chats collection exists (chats ixists in firebase)
-        console.log(currentUser)
         const combinedID = user.uid > currentUser.uid ? user.uid + currentUser.uid : 
                                                         currentUser.uid + user.uid 
         
@@ -79,7 +79,7 @@ const Search = () => {
             setUsersList([])
             setUserName("")
         } catch (error) {
-            console.log(error)
+            setErr(true)
         }
     }
 
@@ -88,7 +88,7 @@ const Search = () => {
             <input
                 type="text"
                 className="SearchInput"
-                placeholder="Search for a user ..."
+                placeholder=" search for a user + Enter ..."
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
                 onKeyDown={handleKey}

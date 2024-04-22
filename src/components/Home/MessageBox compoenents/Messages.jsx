@@ -11,7 +11,6 @@ const Messages = () => {
                 
                  const unsub = onSnapshot(doc(db , "chats" , data.chatId) , (doc)=>{
                      doc.exists() && setMessages(doc.data().messages)
-                    
                  })
                  return ()=>{
                      unsub()
@@ -21,10 +20,12 @@ const Messages = () => {
      } , [data.user.uid] 
  )
 
-    return ( <div className="Messages">
-        {messages.map((m)=>{
-            <Message message={m}/>
-        })}
+    return ( 
+    <div className="Messages">
+        
+        {messages.map((m)=>(
+            <Message message={m} key={m.id}/>
+        ))}
         
         
         

@@ -5,7 +5,6 @@ import { ChatContext } from "../../../Context/ChatContext"
 import { useContext } from "react"
 const ChatBar = () => {
     const {data}= useContext(ChatContext)
-    console.log(data)
     return ( 
         <div className="chatBar">
             <span className="userChat">{data.user.userName}</span>
