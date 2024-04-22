@@ -44,7 +44,7 @@ const Message = ({ message }) => {
                 <span>{formatTimestamp(message.date)}</span>
             </div>
             <div className="MessageContent">
-                <p>{message.textMessage}</p>
+                {message.textMessage && <p>{message.textMessage}</p>}
                 {message.imgMessageURL && <img src={message.imgMessageURL} alt="" />}
             </div>
         </div>

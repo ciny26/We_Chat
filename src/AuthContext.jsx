@@ -9,7 +9,7 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
+      setCurrentUser(user ? user : null);
     });
 
     // Cleanup function to unsubscribe from the listener when component unmounts

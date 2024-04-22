@@ -59,6 +59,7 @@ const Input = () => {
                     date: Timestamp.now(),
                     imgMessageURL: imgMessageURL // Store the download URL of the uploaded image
                 })
+            
             });
         } else {
             await updateDoc(doc(db, "chats", data.chatId), {
@@ -84,6 +85,7 @@ const Input = () => {
         // Reset input values
         setTextMessage("");
         setImgMessage(null);
+        setSelectedImg(initialImgState)
     };
 
     return (
